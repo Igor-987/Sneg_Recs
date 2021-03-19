@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+with open('secret_key.txt') as f:
+    SECRET_KEY = f.read().strip()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +22,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'jj_3h6h76tr!zlsm57fwmd=@^l&c!z5n)^o!u5+&#tm(^lt$_^'
+# удалил отсюда секретный ключ и импортирую его из файла secret_key.txt,
+# который не светится на ГитХабе
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
