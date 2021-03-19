@@ -1,0 +1,19 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+    <h1>Список заявок</h1>
+
+    {% if rec_list %}
+    <ul>
+
+      {% for rec in rec_list %}
+      <li>
+        <a href="{{ rec.get_absolute_url }}">{{ rec.rec_datetime }} --- {{ rec.store}} </a>
+      </li>
+      {% endfor %}
+
+    </ul>
+    {% else %}
+      <p>Заявок пока нетути</p>
+    {% endif %}
+{% endblock %}
