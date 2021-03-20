@@ -8,7 +8,7 @@
 
       {% for rec in rec_list %}
       <li>
-        <a href="{{ rec.get_absolute_url }}">{{ rec.rec_datetime }} --- {{ rec.store}} </a>
+        <a href="{{ rec.get_absolute_url }}">{{ rec.rec_date }} --- {{ rec.rec_time }} --- {{ rec.store}} </a>
       </li>
       {% endfor %}
 

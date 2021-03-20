@@ -48,7 +48,8 @@ class Rec(models.Model):
     Это модель заявки
     """
     status = models.ForeignKey(Status, null=True, on_delete=models.SET_NULL, help_text="Состояние заявки")
-    rec_datetime = models.DateTimeField(auto_now_add=True)
+    rec_date = models.DateField(auto_now_add=True)
+    rec_time = models.TimeField(auto_now_add=True)
     staff = models.ForeignKey(Staff, null=True, on_delete=models.SET_NULL, help_text="Диспетчер")
     customer = models.CharField(max_length=64, help_text="ФИО инициатора заявки")
     rec_num = models.CharField(max_length=12, help_text="Номер заявки")
@@ -66,7 +67,7 @@ class Rec(models.Model):
         """
         String for representing the Model object.
         """
-        return '{0} ({1})'.format(self.rec_datetime.date(), self.store)
+        return '{0} {1} ({2})'.format(self.rec_date, self.rec_time, self.store)
 
 
     def get_absolute_url(self):
