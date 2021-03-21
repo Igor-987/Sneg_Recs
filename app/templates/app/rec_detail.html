@@ -1,9 +1,19 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h3>Title: {{ rec.store }}</h3>
+  <h3>Торговая точка: {{ rec.store }}</h3>
 
-  <p><strong>Номер заявки:</strong> {{ rec.rec_num }}</p><p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
+  <p><strong>Номер заявки:</strong> {{ rec.rec_num }}</p>
+  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
+  <p><strong>Дата и время приема заявки:</strong> {{ rec.rec_date }} {{ rec.rec_time }}</p>
+  <p><strong>Статус заявки:</strong> {{ rec.status }} &nbsp; &nbsp; &nbsp; <strong>Диспетчер:</strong> {{ rec.staff }}</p>
+  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
+  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
+  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
+  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
+  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
+  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
+
 
 
 {% endblock %}
