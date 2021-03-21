@@ -9,7 +9,7 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 
-  <!-- Добавление дополнительного статического CSS файла -->
+  <!-- Добавление дополнительного статического CSS файла и картинки-->
   {% load static %}
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
   <img src="{% static 'images/snow.jpg' %}" alt="Snow" style="width:100%;"/>
@@ -23,9 +23,16 @@
       <div class="col-sm-2">
       {% block sidebar %}
       <ul class="sidebar-nav">
-          <li><a href="{% url 'index' %}">Home</a></li> <br/>
-          <li><a href="{% url 'recs' %}">Список всех заявок</a></li> <br/>
-          <li><a href="">Создать новую заявку</a></li> <br/>
+          <li><a href="{% url 'index' %}">Home</a></li> <br>
+          <li><a href="{% url 'recs' %}">Список всех заявок</a></li> <br>
+          <li><a href="">Создать новую заявку</a></li> <br><br><br><br><br>
+        {% if user.is_authenticated %}
+            <li>Пользователь: </li><li><strong>{{ user.get_username }}</strong></li>
+
+            <li><a href="{% url 'logout'%}?next={% url 'index' %}">Выйти</a></li>
+        {% else %}
+            <li><a href="{% url 'login'%}?next={% url 'index' %}">Войти</a></li>
+        {% endif %}
       </ul>
      {% endblock %}
       </div>

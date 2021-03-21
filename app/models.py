@@ -65,7 +65,6 @@ class Rec(models.Model):
     class Meta:
         ordering = ['-id'] # итерация по заявкам в rec-list.html в обратном порядке
 
-
     def __str__(self):
         """
         String for representing the Model object.

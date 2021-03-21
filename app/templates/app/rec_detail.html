@@ -1,18 +1,23 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
-  <h3>Торговая точка: {{ rec.store }}</h3>
 
-  <p><strong>Номер заявки:</strong> {{ rec.rec_num }}</p>
-  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
-  <p><strong>Дата и время приема заявки:</strong> {{ rec.rec_date }} {{ rec.rec_time }}</p>
-  <p><strong>Статус заявки:</strong> {{ rec.status }} &nbsp; &nbsp; &nbsp; <strong>Диспетчер:</strong> {{ rec.staff }}</p>
-  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
-  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
-  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
-  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
-  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
-  <p><strong>ФИО инициатора заявки:</strong> {{ rec.customer }}</p>
+  <h4><strong>Детальная информация о заявке:</strong></h4>
+  <div style="border: 1px solid black; background-color: white; padding: 10px;">
+  <p><strong>Номер заявки:</strong>&nbsp;{{ rec.rec_num }} ({{ rec.rec_date }} {{ rec.rec_time }})</p>
+  <p><strong>Торговая точка:</strong>&nbsp;{{ rec.store }} ({{ rec.customer }}) </p>
+  <p><strong>Статус заявки:</strong>&nbsp;{{ rec.status }}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <strong>Диспетчер:</strong>&nbsp;{{ rec.staff }}</p>
+  <p><strong>Содержание заявки:</strong>&nbsp;{{ rec.description }}</p></div>
+  <div style="border: 1px solid black; background-color: white; padding: 10px;">
+  <p><strong>Категория неисправноcти:</strong>&nbsp;{{ rec.trouble }}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+    <strong>Сервисный инженер:</strong>&nbsp;{{ rec.tech }}</p>
+  <p><strong>Время передачи заявки инженеру:</strong>&nbsp;{{ rec.sign }}</p></div>
+  <div style="border: 1px solid black; background-color: white; padding: 10px;">
+    <p><strong>Дата визита инженера:</strong>&nbsp;{{ rec.visit }}</p>
+  <p><strong>Результат визита (комментарий инженера):</strong>&nbsp;{{ rec.result }}</p>
+  <p><strong>Номер заказа-наряда:</strong>&nbsp;{{ rec.form }}</p></div>
+<br>
 
 
 
