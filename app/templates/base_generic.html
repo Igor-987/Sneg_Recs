@@ -25,7 +25,7 @@
       <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Home</a></li> <br>
           <li><a href="{% url 'recs' %}">Список всех заявок</a></li> <br>
-          <li><a href="">Создать новую заявку</a></li> <br><br><br><br><br>
+          <li><a href="{% url 'rec_create' %}">Создать новую заявку</a></li> <br><br><br><br><br>
         {% if user.is_authenticated %}
             <li>Пользователь: </li><li><strong>{{ user.get_username }}</strong></li>
 

@@ -63,7 +63,7 @@ class Rec(models.Model):
     form = models.TextField(null=True, blank=True, max_length=10, help_text="Номер заказа-наряда")
 
     class Meta:
-        ordering = ['-id'] # итерация по заявкам в rec-list.html в обратном порядке
+        ordering = ['-rec_date'] # итерация по заявкам в rec-list.html в обратном порядке
 
     def __str__(self):
         """
