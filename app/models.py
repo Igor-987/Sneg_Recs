@@ -47,7 +47,7 @@ class Rec(models.Model):
     """
     Это модель заявки
     """
-    status = models.ForeignKey(Status, null=True, on_delete=models.SET_NULL, verbose_name="Статус заявки")
+    status = models.ForeignKey(Status, null=True, on_delete=models.SET_NULL, default=4, verbose_name="Статус заявки")
     rec_date = models.DateField(auto_now_add=True)
     rec_time = models.TimeField(auto_now_add=True)
     staff = models.ForeignKey(Staff, null=True, on_delete=models.SET_NULL, verbose_name='Диспетчер')
@@ -55,9 +55,9 @@ class Rec(models.Model):
     rec_num = models.CharField(verbose_name='Номер заявки', max_length=12)
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL, verbose_name="Торговая точка, адрес")
     description = models.TextField(max_length=1000, verbose_name="Содержание заявки")
-    trouble = models.ForeignKey(Trouble, null=True, on_delete=models.SET_NULL, verbose_name="Категория неисправности")
-    tech = models.ForeignKey(Tech, on_delete=models.SET_NULL, null=True, blank=True, verbose_name="Сервисный инженер")
-    sign = models.DateTimeField(blank=True, verbose_name="Дата и время передачи заявки инженеру")
+    trouble = models.ForeignKey(Trouble, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Категория неисправности")
+    tech = models.ForeignKey(Tech, null=True, on_delete=models.SET_NULL, default=4, verbose_name="Сервисный инженер")
+    sign = models.DateTimeField(null=True, blank=True, verbose_name="Дата и время передачи заявки инженеру")
     visit = models.DateField(null=True, blank=True, verbose_name="Дата визита инженера")
     result = models.TextField(null=True, blank=True, max_length=1000, verbose_name="Результат выезда")
     form = models.CharField(null=True, blank=True, max_length=10, verbose_name="Номер заказа-наряда")
