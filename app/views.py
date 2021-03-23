@@ -41,19 +41,14 @@ def rec_list(request):
 class RecDetailView(generic.DetailView):
     model = Rec
 
-# @permission_required('make_new_rec')
-# def new_rec(request):
-#    pass
-
 class RecCreate(CreateView):
     model = Rec
     fields = ['rec_num', 'staff', 'store', 'customer', 'description']
-    # initial= {'status': }
 
-# class AuthorUpdate(UpdateView):
-#     model = Author
-#     fields = ['first_name','last_name','date_of_birth','date_of_death']
 
-# class AuthorDelete(DeleteView):
-#     model = Author
-#     success_url = reverse_lazy('authors')
+class RecUpdate1(UpdateView):
+    model = Rec
+    initial = {'status': 5}
+    fields = ['status', 'sign', 'tech', 'trouble']
+
+

@@ -3,25 +3,38 @@
 {% block content %}
 
   <h4><strong>Детальная информация о заявке:</strong></h4>
- <div style="border: 1px solid black; background-color: white; padding: 10px; width:645px;">
+ <div style="border: 1px solid black; background-color: white; padding: 3px; width:645px;">
   <p><strong>Статус заявки:</strong>&nbsp;{{ rec.status }}</p></div><br>
 
-  <div style="border: 1px solid black; background-color: white; padding: 10px; width:645px;">
+  <div style="border: 1px solid black; background-color: white; padding: 3px; width:645px;">
   <p><strong>Номер и дата заявки:</strong>&nbsp;{{ rec.rec_num }} ({{ rec.rec_date }} {{ rec.rec_time }})</p>
   <p><strong>Торговая точка:</strong>&nbsp;{{ rec.store }} ({{ rec.customer }}) </p>
   <p><strong>Диспетчер:</strong>&nbsp;{{ rec.staff }}</p>
   <p><strong>Содержание заявки:</strong>&nbsp;{{ rec.description }}</p></div><br>
 {% if rec.sign %}
-  <div style="border: 1px solid black; background-color: white; padding: 10px; width:645px;">
+  <div style="border: 1px solid black; background-color: white; padding: 3px; width:645px;">
   <p><strong>Категория неисправноcти:</strong>&nbsp;{{ rec.trouble }}  &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
     <strong>Сервисный инженер:</strong>&nbsp;{{ rec.tech }}</p>
   <p><strong>Время передачи заявки инженеру:</strong>&nbsp;{{ rec.sign }}</p></div><br>
 {% endif %}
 {% if rec.visit %}
-<div style="border: 1px solid black; background-color: white; padding: 10px; width:645px;">
+<div style="border: 1px solid black; background-color: white; padding: 3px; width:645px;">
     <p><strong>Дата визита инженера:</strong>&nbsp;{{ rec.visit }}</p>
   <p><strong>Результат визита (комментарий инженера):</strong>&nbsp;{{ rec.result }}</p>
   <p><strong>Номер заказа-наряда:</strong>&nbsp;{{ rec.form }}</p></div>
+{% endif %}
+
+{% if not rec.sign %}
+
+<form action="{{ rec.get_upd1_url }}">
+   <button>Довести информацию до инженера</button>
+  </form>
+{% endif %}
+
+{% if rec.sign and not rec.visit %}
+<form>
+	<input type="button" value="Отчет инженера" onclick="??????????????????????????"/>
+</form>
 <br>
 {% endif %}
 

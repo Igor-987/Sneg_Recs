@@ -74,6 +74,15 @@ class Rec(models.Model):
 
     def get_absolute_url(self):
         """
-        Returns the url to access a rec instance.
+        Returns the url to access a rec instance for detail view.
         """
-        return reverse('rec-detail', args=[str(self.id)])
+        return reverse('rec_detail', args=[str(self.id)])
+
+
+    def get_upd1_url(self):
+        """
+        Returns the url to access a rec instance for update.
+        """
+        return reverse('rec_update1', args=[str(self.id)])
+
+
