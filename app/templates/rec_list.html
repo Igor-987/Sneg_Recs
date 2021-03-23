@@ -2,12 +2,10 @@
 
 {% block content %}
 
-
-
   {% if recs %}
 
     {% for d in ddd %}
-        <h4>{{ d }}</h4>
+        <h4><strong>{{ d }}</strong></h4>
 <table border="2">
        <tr>
            <td width="15%" align="center" > <strong> &nbsp;Номер заявки&nbsp; </strong> </td>
@@ -37,4 +35,5 @@
   {% else %}
     <p>Заявок пока нетути</p>
   {% endif %}
+<br><br>
 {% endblock %}

@@ -28,7 +28,7 @@ def rec_list(request):
     ddd = set()
     for i in recs:
         ddd.add(i.rec_date)
-
+    ddd = sorted(ddd, reverse=True)[:45] # сортировка убыванию даты и кол-во отображаемых дней
     # Отрисовка HTML-шаблона rec_list.html с данными внутри переменной контекста context
     return render(
         request,
@@ -48,9 +48,7 @@ class RecDetailView(generic.DetailView):
 class RecCreate(CreateView):
     model = Rec
     fields = ['rec_num', 'staff', 'store', 'customer', 'description']
-    labels = {'rec_num': ('Renewal date'), 'staff': ('Renewal date'), 'store': ('Renewal date'), 'customer': ('Renewal date'), 'description': ('Renewal date'), }
-    help_texts = {'rec_num': ('Enter a date between now and 4 weeks (default 3).'), }
-    # initial= {'status': ,}
+    # initial= {'status': }
 
 # class AuthorUpdate(UpdateView):
 #     model = Author

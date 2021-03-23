@@ -20,12 +20,7 @@ admin.site.register(Store)
 
 @admin.register(Rec)
 class RecAdmin(admin.ModelAdmin):
-    list_display = ('rec_date', 'staff', 'store', 'tech', 'visit', 'result')
-    """
-        Атрибут полей перечисляет только те поля, которые должны отображаться в форме, по порядку.
-        Поля отображаются по вертикали по умолчанию, но будут отображаться горизонтально,
-        если вы дополнительно группируете их в кортеже.
-    """
+    list_display = ('rec_num','rec_date',  'staff', 'store')
     list_filter = ('rec_date', 'tech')  # Возможность фильтрации отображаемых пунктов.
 
 
