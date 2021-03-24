@@ -52,3 +52,14 @@ class RecUpdate1(UpdateView):
     fields = ['status', 'sign', 'tech', 'trouble']
 
 
+class RecUpdate2(UpdateView):
+    model = Rec
+    initial = {'status': 6}
+    fields = ['status', 'visit', 'result']
+
+
+class RecUpdate3(UpdateView):
+    model = Rec
+    initial = {'status': 7}
+    template_name = 'jpg.html'
+    fields = ['status', 'jpg', 'form']

@@ -55,15 +55,16 @@ class Rec(models.Model):
     rec_num = models.CharField(verbose_name='Номер заявки', max_length=12)
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL, verbose_name="Торговая точка, адрес")
     description = models.TextField(max_length=1000, verbose_name="Содержание заявки")
-    trouble = models.ForeignKey(Trouble, null=True, blank=True, on_delete=models.SET_NULL, verbose_name="Категория неисправности")
-    tech = models.ForeignKey(Tech, null=True, on_delete=models.SET_NULL, default=4, verbose_name="Сервисный инженер")
-    sign = models.DateTimeField(null=True, blank=True, verbose_name="Дата и время передачи заявки инженеру")
-    visit = models.DateField(null=True, blank=True, verbose_name="Дата визита инженера")
-    result = models.TextField(null=True, blank=True, max_length=1000, verbose_name="Результат выезда")
-    form = models.CharField(null=True, blank=True, max_length=10, verbose_name="Номер заказа-наряда")
+    trouble = models.ForeignKey(Trouble, null=True, on_delete=models.SET_NULL, verbose_name="Категория неисправности")
+    tech = models.ForeignKey(Tech, null=True, on_delete=models.SET_NULL, verbose_name="Сервисный инженер")
+    sign = models.DateTimeField(null=True, verbose_name="Дата и время передачи заявки инженеру")
+    visit = models.DateField(null=True, verbose_name="Дата визита инженера")
+    result = models.TextField(null=True, max_length=1000, verbose_name="Результат выезда")
+    form = models.CharField(null=True, max_length=10, verbose_name="Номер заказа-наряда")
+    jpg = models.ImageField(upload_to='images', null=True, verbose_name="Скан-копия заказа-наряда")
 
     class Meta:
-        ordering = ['-rec_date'] # итерация по заявкам в rec-list.html в обратном порядке
+        ordering = ['-rec_time'] # итерация по заявкам в rec-list.html в обратном порядке
 
     def __str__(self):
         """
@@ -86,3 +87,15 @@ class Rec(models.Model):
         return reverse('rec_update1', args=[str(self.id)])
 
 
+    def get_upd2_url(self):
+        """
+        Returns the url to access a rec instance for update.
+        """
+        return reverse('rec_update2', args=[str(self.id)])
+
+
+    def get_upd3_url(self):
+        """
+        Returns the url to access a rec instance for update.
+        """
+        return reverse('rec_update3', args=[str(self.id)])
