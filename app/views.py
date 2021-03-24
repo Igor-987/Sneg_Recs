@@ -5,6 +5,8 @@ from django.contrib.auth.decorators import permission_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 from .models import Status, Staff, Trouble, Tech, Store, Rec
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 def index(request):
     """
@@ -19,7 +21,10 @@ def index(request):
         context={'num_recs':num_recs},
     )
 
-@login_required # Доступ к функции имеют только зарегенные юзеры
+# @login_required # Доступ к функции имеют только зарегенные юзеры
+
+
+@permission_required('app.can_list_detail')
 def rec_list(request):
     """
     Функция отображения для домашней страницы сайта.
@@ -38,28 +43,36 @@ def rec_list(request):
 
 
 
-class RecDetailView(generic.DetailView):
+class RecDetailView(PermissionRequiredMixin, generic.DetailView):
     model = Rec
+    permission_required = 'app.can_list_detail'
 
-class RecCreate(CreateView):
+
+class RecCreate(PermissionRequiredMixin, CreateView):
     model = Rec
+    permission_required = 'app.can_create_update'
     fields = ['rec_num', 'staff', 'store', 'customer', 'description']
 
 
-class RecUpdate1(UpdateView):
+
+class RecUpdate1(PermissionRequiredMixin, UpdateView):
     model = Rec
+    permission_required = 'app.can_create_update'
     initial = {'status': 5}
     fields = ['status', 'sign', 'tech', 'trouble']
 
 
-class RecUpdate2(UpdateView):
+
+class RecUpdate2(PermissionRequiredMixin, UpdateView):
     model = Rec
+    permission_required = 'app.can_create_update'
     initial = {'status': 6}
     fields = ['status', 'visit', 'result']
 
 
-class RecUpdate3(UpdateView):
+class RecUpdate3(PermissionRequiredMixin, UpdateView):
     model = Rec
+    permission_required = 'app.can_create_update'
     initial = {'status': 7}
     template_name = 'jpg.html'
     fields = ['status', 'jpg', 'form']

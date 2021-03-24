@@ -33,23 +33,27 @@
 
 
 {% if not rec.sign %}
+{% if perms.app.can_create_update %}
 <form action="{{ rec.get_upd1_url }}">
    <button>Довести информацию до инженера</button>
-  </form>
+  </form><br>
+{% endif %}
 {% endif %}
 
 {% if rec.sign and not rec.visit %}
+{% if perms.app.can_create_update %}
 <form action="{{ rec.get_upd2_url }}">
    <button>Отчет инженера</button>
-  </form>
-<br>
+  </form><br>
+{% endif %}
 {% endif %}
 
 {% if rec.sign and rec.visit and not rec.jpg %}
+{% if perms.app.can_create_update %}
 <form action="{{ rec.get_upd3_url }}">
    <button>Загрузить скан-копию заказа-наряда</button>
-  </form>
-<br>
+  </form><br>
+{% endif %}
 {% endif %}
 
 

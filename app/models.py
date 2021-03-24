@@ -1,6 +1,6 @@
 from django.db import models
 from django.urls import reverse
-import datetime
+
 
 
 class Status(models.Model):
@@ -64,7 +64,11 @@ class Rec(models.Model):
     jpg = models.ImageField(upload_to='images', null=True, verbose_name="Скан-копия заказа-наряда")
 
     class Meta:
-        ordering = ['-rec_time'] # итерация по заявкам в rec-list.html в обратном порядке
+        ordering = ['-rec_time'] # отображение заявок в rec-list.html в обратном порядке
+        permissions = (("can_create_update", "Может rec_create и rec_update"),
+                       ("can_list_detail", "Может rec_list и rec_detail"),
+                       )
+
 
     def __str__(self):
         """

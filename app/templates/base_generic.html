@@ -24,14 +24,21 @@
       {% block sidebar %}
       <ul class="sidebar-nav">
           <li><a href="{% url 'index' %}">Home</a></li> <br>
-          <li><a href="{% url 'recs' %}">Список всех заявок</a></li> <br>
-          <li><a href="{% url 'rec_create' %}">Создать новую заявку</a></li> <br><br><br><br><br>
+          {% if perms.app.can_list_detail %}
+          <li><a href="{% url 'recs' %}">Список всех заявок</a></li>
+          {% endif %}
+          <br>
+          {% if perms.app.can_create_update %}
+          <li><a href="{% url 'rec_create' %}">Создать новую заявку</a></li>
+          {% endif %}
+          <br><br><br><br><br>
         {% if user.is_authenticated %}
-            <li>Пользователь: </li><li><strong>{{ user.get_username }}</strong></li>
-
+            <li>Вы авторизованы как: </li><li><strong>{{ user.get_username }}</strong></li><br>
             <li><a href="{% url 'logout'%}?next={% url 'index' %}">Выйти</a></li>
         {% else %}
-            <li><a href="{% url 'login'%}?next={% url 'index' %}">Войти</a></li>
+            <li><strong>Вы не авторизованы.</strong></li> <br>
+            <li>Чтобы это исправить, </li>
+            <li><a href="{% url 'login'%}?next={% url 'index' %}">нажмите здесь.</a></li>
         {% endif %}
       </ul>
      {% endblock %}
