@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 import os
 from pathlib import Path
-with open('readme.txt') as f:
+with open('secret_key.txt') as f:
     SECRET_KEY = f.read().strip()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
