@@ -7,6 +7,14 @@ from django.urls import reverse_lazy
 from .models import Status, Staff, Trouble, Tech, Store, Rec
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from django import forms
+from .models import Status, Staff, Trouble, Tech, Store, Rec
+from django.forms import DateTimeInput, MultipleHiddenInput, DateInput, SelectDateWidget, SplitDateTimeWidget, Select, SplitHiddenDateTimeWidget
+from django.forms import ModelForm
+from django.contrib.admin.widgets import AdminDateWidget, AdminSplitDateTime, AdminTimeWidget
+
+
+
 
 def index(request):
     """
@@ -52,22 +60,42 @@ class RecCreate(PermissionRequiredMixin, CreateView):
     model = Rec
     permission_required = 'app.can_create_update'
     fields = ['rec_num', 'staff', 'store', 'customer', 'description']
+    initial = {'status': 5}
 
+
+class Upd1(forms.ModelForm):
+    class Meta:
+        model = Rec
+#        initial = {'status': 5}
+        fields = ['status', 'signd', 'signt', 'tech', 'trouble']
+        disabled = 'status'
+        widgets = {'signd': AdminDateWidget(), 'signt': AdminTimeWidget()}
+
+
+class Upd2(forms.ModelForm):
+    class Meta:
+        model = Rec
+#        initial = {'status': 6}
+        fields = ['status', 'visit', 'result']
+        disabled = 'status'
+        widgets = {'visit': AdminDateWidget()}
 
 
 class RecUpdate1(PermissionRequiredMixin, UpdateView):
     model = Rec
+    form_class = Upd1
     permission_required = 'app.can_create_update'
     initial = {'status': 5}
-    fields = ['status', 'sign', 'tech', 'trouble']
+#    fields = ['status', 'sign', 'tech', 'trouble']
 
 
 
 class RecUpdate2(PermissionRequiredMixin, UpdateView):
     model = Rec
+    form_class = Upd2
     permission_required = 'app.can_create_update'
     initial = {'status': 6}
-    fields = ['status', 'visit', 'result']
+#    fields = ['status', 'visit', 'result']
 
 
 class RecUpdate3(PermissionRequiredMixin, UpdateView):

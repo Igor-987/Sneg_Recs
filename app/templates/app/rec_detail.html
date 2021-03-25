@@ -12,27 +12,27 @@
   <p><strong>Диспетчер:</strong>&nbsp;{{ rec.staff }}</p>
   <p><strong>Содержание заявки:</strong>&nbsp;{{ rec.description }}</p></div><br>
 
-{% if rec.sign %}
+{% if rec.signd and rec.signt %}
   <div style="border: 1px solid black; background-color: white; padding: 3px; width:88%;">
   <p><strong>Категория неисправноcти:</strong>&nbsp;{{ rec.trouble }}  &nbsp; &nbsp; &nbsp;
     <strong>Сервисный инженер:</strong>&nbsp;{{ rec.tech }}</p>
-  <p><strong>Время передачи заявки инженеру:</strong>&nbsp;{{ rec.sign }}</p></div><br>
+  <p><strong>Время передачи заявки инженеру:</strong>&nbsp;{{ rec.signd }}&nbsp; &nbsp;{{ rec.signt }}</p></div><br>
 {% endif %}
 
-{% if rec.visit and rec.sign %}
+{% if rec.visit and rec.signd and rec.signt %}
 <div style="border: 1px solid black; background-color: white; padding: 3px; width:88%;">
     <p><strong>Дата визита инженера:</strong>&nbsp;{{ rec.visit }}</p>
   <p><strong>Результат визита (комментарий инженера):</strong>&nbsp;{{ rec.result }}</p></div><br>
 {% endif %}
 
-{% if rec.visit and rec.sign and rec.jpg %}
+{% if rec.visit and rec.signd and rec.signt and rec.jpg %}
 <div style="border: 1px solid black; background-color: white; padding: 3px; width:88%;">
       <p><strong>Номер заказа-наряда:</strong>&nbsp;{{ rec.form }}</p>
       <p>&nbsp;<img src="{{rec.jpg.url}}" alt="connect" style="max-height:1000px"></p></div><br>
 {% endif %}
 
 
-{% if not rec.sign %}
+{% if not rec.signd or not rec.signt %}
 {% if perms.app.can_create_update %}
 <form action="{{ rec.get_upd1_url }}">
    <button>Довести информацию до инженера</button>
@@ -40,7 +40,7 @@
 {% endif %}
 {% endif %}
 
-{% if rec.sign and not rec.visit %}
+{% if rec.signd and rec.signt and not rec.visit %}
 {% if perms.app.can_create_update %}
 <form action="{{ rec.get_upd2_url }}">
    <button>Отчет инженера</button>
@@ -48,7 +48,7 @@
 {% endif %}
 {% endif %}
 
-{% if rec.sign and rec.visit and not rec.jpg %}
+{% if rec.signd and rec.signt and rec.visit and not rec.jpg %}
 {% if perms.app.can_create_update %}
 <form action="{{ rec.get_upd3_url }}">
    <button>Загрузить скан-копию заказа-наряда</button>
