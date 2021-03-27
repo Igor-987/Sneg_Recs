@@ -4,15 +4,13 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
-from .models import Status, Staff, Trouble, Tech, Store, Rec
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django import forms
 from .models import Status, Staff, Trouble, Tech, Store, Rec
 from django.forms import DateTimeInput, HiddenInput, MultipleHiddenInput, DateInput, SelectDateWidget, SplitDateTimeWidget, Select, SplitHiddenDateTimeWidget
 from django.forms import ModelForm
-from django.contrib.admin.widgets import AdminDateWidget, AdminSplitDateTime, AdminTimeWidget
-
+import datetime
 
 
 
@@ -69,23 +67,20 @@ class RecCreate(PermissionRequiredMixin, CreateView):
 class Upd1(forms.ModelForm):
     class Meta:
         model = Rec
-#        initial = {'status': 5}
         fields = ['status', 'signd', 'signt', 'tech', 'trouble']
-        widgets = {'signd': AdminDateWidget(), 'signt': AdminTimeWidget(), 'status': HiddenInput()}
+        widgets = {'status': HiddenInput()}
 
 
 class Upd2(forms.ModelForm):
     class Meta:
         model = Rec
-#        initial = {'status': 6}
         fields = ['status', 'visit', 'result']
-        widgets = {'visit': AdminDateWidget(), 'status': HiddenInput()}
+        widgets = {'status': HiddenInput()}
 
 
 class Upd3(forms.ModelForm):
     class Meta:
         model = Rec
-#        initial = {'status': 7}
         fields = ['status', 'jpg', 'form']
         widgets = {'status': HiddenInput()}
 
@@ -95,16 +90,16 @@ class RecUpdate1(PermissionRequiredMixin, UpdateView):
     model = Rec
     form_class = Upd1
     permission_required = 'app.can_create_update'
-    initial = {'status': 5}
-#    fields = ['status', 'sign', 'tech', 'trouble']
+    initial = {'status': 5, 'signd': datetime.datetime.now(), 'signt': datetime.datetime.now()}
+
 
 
 class RecUpdate2(PermissionRequiredMixin, UpdateView):
     model = Rec
     form_class = Upd2
     permission_required = 'app.can_create_update'
-    initial = {'status': 6}
-#    fields = ['status', 'visit', 'result']
+    initial = {'status': 6, 'visit': datetime.datetime.now()}
+
 
 
 class RecUpdate3(PermissionRequiredMixin, UpdateView):
@@ -113,4 +108,3 @@ class RecUpdate3(PermissionRequiredMixin, UpdateView):
     permission_required = 'app.can_create_update'
     initial = {'status': 7}
     template_name = 'jpg.html'
-#    fields = ['status', 'jpg', 'form']
