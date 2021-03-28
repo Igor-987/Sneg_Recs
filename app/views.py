@@ -7,11 +7,13 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django import forms
-from .models import Status, Staff, Trouble, Tech, Store, Rec
-from django.forms import DateTimeInput, HiddenInput, MultipleHiddenInput, DateInput, SelectDateWidget, SplitDateTimeWidget, Select, SplitHiddenDateTimeWidget
+from .models import Status, Trouble, Tech, Store, Rec
+from django.forms import DateTimeInput, HiddenInput, MultipleHiddenInput, DateInput, SelectDateWidget, \
+    SplitDateTimeWidget, Select, SplitHiddenDateTimeWidget
 from django.forms import ModelForm
 import datetime
-
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -24,8 +26,9 @@ def index(request):
     return render(
         request,
         'index.html',
-        context={'num_recs':num_recs},
+        context={'num_recs': num_recs},
     )
+
 
 # @login_required # Доступ к функции имеют только зарегенные юзеры
 
@@ -39,14 +42,13 @@ def rec_list(request):
     ddd = set()
     for i in recs:
         ddd.add(i.rec_date)
-    ddd = sorted(ddd, reverse=True)[:45] # сортировка убыванию даты и кол-во отображаемых дней
+    ddd = sorted(ddd, reverse=True)[:45]  # сортировка убыванию даты и кол-во отображаемых дней
     # Отрисовка HTML-шаблона rec_list.html с данными внутри переменной контекста context
     return render(
         request,
         'rec_list.html',
-        context={'recs':recs, 'ddd':ddd},
+        context={'recs': recs, 'ddd': ddd},
     )
-
 
 
 class RecDetailView(PermissionRequiredMixin, generic.DetailView):
@@ -62,19 +64,39 @@ class RecCreate(PermissionRequiredMixin, CreateView):
 
 
 
+# @permission_required('app.can_list_detail')
+# def rec_list(request):
+
+
+#    return render(
+#        request,
+#        'rec_list.html',
+#        context={'recs': recs, 'ddd': ddd},
+#    )
+
+
+
+
+
+
+
+
+
+
+
 
 
 class Upd1(forms.ModelForm):
     class Meta:
         model = Rec
-        fields = ['status', 'signd', 'signt', 'tech', 'trouble']
+        fields = ['status', 'sign_day', 'sign_time', 'tech', 'trouble']
         widgets = {'status': HiddenInput()}
 
 
 class Upd2(forms.ModelForm):
     class Meta:
         model = Rec
-        fields = ['status', 'visit', 'result']
+        fields = ['status', 'visit_day_begin', 'visit_time_begin', 'visit_day_end', 'visit_time_end', 'result']
         widgets = {'status': HiddenInput()}
 
 
@@ -85,21 +107,22 @@ class Upd3(forms.ModelForm):
         widgets = {'status': HiddenInput()}
 
 
-
 class RecUpdate1(PermissionRequiredMixin, UpdateView):
     model = Rec
     form_class = Upd1
+    initial = {'status': 5, 'sign_day': datetime.date.today(), 'sign_time': datetime.datetime.now()}
     permission_required = 'app.can_create_update'
-    initial = {'status': 5, 'signd': datetime.datetime.now(), 'signt': datetime.datetime.now()}
-
+#    initial = {'status': 5, 'sign_day': datetime.datetime.now(), 'sign_time': datetime.datetime.now()}
 
 
 class RecUpdate2(PermissionRequiredMixin, UpdateView):
     model = Rec
     form_class = Upd2
     permission_required = 'app.can_create_update'
-    initial = {'status': 6, 'visit': datetime.datetime.now()}
-
+    initial = {'status': 6, 'visit_day_begin': datetime.datetime.now(),
+               'visit_time_begin': datetime.datetime.now(), 'visit_day_end': datetime.datetime.now(),
+               'visit_time_end': datetime.datetime.now()
+               }
 
 
 class RecUpdate3(PermissionRequiredMixin, UpdateView):

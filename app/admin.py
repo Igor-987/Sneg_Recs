@@ -1,7 +1,6 @@
 from django.contrib import admin
-from .models import Status, Staff, Trouble, Tech, Store, Rec
+from .models import Status, Trouble, Tech, Store, Rec
 admin.site.register(Status)
-admin.site.register(Staff)
 admin.site.register(Trouble)
 admin.site.register(Tech)
 admin.site.register(Store)
