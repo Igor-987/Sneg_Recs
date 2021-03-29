@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponseRedirect
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
@@ -15,7 +16,7 @@ from django.shortcuts import get_object_or_404
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import Upd1, Upd2, Upd3
+from .forms import Upd1, Upd2, Upd3, RecCreateForm
 
 gray = Status(4)  # Принята
 blue = Status(5)  # Передана инженеру
@@ -64,9 +65,24 @@ class RecDetailView(PermissionRequiredMixin, generic.DetailView):
 
 class RecCreate(PermissionRequiredMixin, CreateView):
     model = Rec
+    form_class = RecCreateForm
     permission_required = 'app.can_create_update'
-    fields = ['retail', 'rec_num', 'staff', 'store', 'customer', 'description']
-    initial = {'staff': '5'}
+
+    def form_valid(self, form):
+        self.object = form.save(commit=False)
+        self.object.user = self.request.user
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def get_initial(self, *args, **kwargs):
+        initial = super(RecCreate, self).get_initial(**kwargs)
+        initial['title'] = 'My Title'
+        return initial
+
+    def get_form_kwargs(self, *args, **kwargs):
+        kwargs = super(RecCreate, self).get_form_kwargs(*args, **kwargs)
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
 class RecUpdate1(PermissionRequiredMixin, UpdateView):

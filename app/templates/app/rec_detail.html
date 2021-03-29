@@ -25,7 +25,7 @@
       <p><strong>Торговая сеть:</strong>&nbsp;{{ rec.retail }} </p>
       <p><strong>Номер и дата заявки:</strong>&nbsp;{{ rec.rec_num }} ({{ rec.rec_date }} {{ rec.rec_time }})</p>
       <p><strong>Торговая точка:</strong>&nbsp;{{ rec.store }} ({{ rec.customer }}) </p>
-      <p><strong>Диспетчер:</strong>&nbsp;{{ rec.staff }}</p>
+      <p><strong>Диспетчер:</strong>&nbsp;{{ rec.user }}</p>
       <p><strong>Содержание заявки:</strong>&nbsp;{{ rec.description }}</p></div><br>
 
 {% if rec.sign_day and rec.sign_time %}

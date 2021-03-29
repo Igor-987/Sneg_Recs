@@ -20,7 +20,7 @@ admin.site.register(Retail)
 
 @admin.register(Rec)
 class RecAdmin(admin.ModelAdmin):
-    list_display = ('rec_num', 'rec_date',  'staff', 'store')
+    list_display = ('rec_num', 'rec_date',  'user', 'store')
     list_filter = ('rec_date', 'tech')  # Возможность фильтрации отображаемых пунктов.
 
 

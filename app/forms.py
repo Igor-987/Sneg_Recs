@@ -22,3 +22,19 @@ class Upd3(forms.ModelForm):
         model = Rec
         fields = ['status', 'jpg', 'form']
         widgets = {'status': HiddenInput()}
+
+
+class RecCreateForm(forms.ModelForm):
+    class Meta:
+        model = Rec
+        fields = ['retail', 'rec_num', 'store', 'customer', 'description']
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(RecCreateForm, self).__init__(*args, **kwargs)
+
+    def clean_title(self):
+        title = self.cleaned_data['title']
+        if Book.objects.filter(user=self.user, title=title).exists():
+            raise forms.ValidationError("You have already written a book with same title.")
+        return title
