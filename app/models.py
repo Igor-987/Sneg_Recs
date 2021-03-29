@@ -1,6 +1,8 @@
 from django.db import models
 from django.urls import reverse
 from django.contrib.auth.models import User
+import datetime
+from django.utils import timezone
 
 
 class Status(models.Model):
@@ -48,8 +50,8 @@ class Rec(models.Model):
     Это модель заявки
     """
     status = models.ForeignKey(Status, null=True, on_delete=models.SET_NULL, default=4, verbose_name="Статус заявки")
-    rec_date = models.DateField(auto_now_add=True)
-    rec_time = models.TimeField(auto_now_add=True)
+    rec_date = models.DateField(auto_now_add=True, verbose_name="Дата создания заявки")
+    rec_time = models.TimeField(auto_now_add=True, verbose_name="Время создания заявки")
     staff = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
     customer = models.CharField(max_length=100, verbose_name="ФИО инициатора заявки")
     rec_num = models.CharField(verbose_name='Номер заявки', max_length=12)

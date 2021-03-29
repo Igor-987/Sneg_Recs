@@ -4,7 +4,18 @@
 
   <h4><strong>Детальная информация о заявке:</strong></h4>
  <div style="border: 1px solid black; background-color: white; padding: 3px; width:88%;">
-  <p><strong>Статус заявки:</strong>&nbsp;{{ rec.status }}</p></div><br>
+
+                {% if rec.status == gray %}
+                <p style="background-color: #A9A9A9" > <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p>
+                {% elif rec.status == blue %}
+                <p style="background-color: #00BFFF" > <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p>
+                 {% elif rec.status == yellow %}
+                <p style="background-color: #FFD700" > <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p>
+                {% elif rec.status == green %}
+                <p style="background-color: #32CD32" > <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p>
+                {% endif %}
+ </div><br>
+
 
   <div style="border: 1px solid black; background-color: white; padding: 3px; width:88%;">
   <p><strong>Номер и дата заявки:</strong>&nbsp;{{ rec.rec_num }} ({{ rec.rec_date }} {{ rec.rec_time }})</p>

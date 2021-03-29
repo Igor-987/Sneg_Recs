@@ -14,7 +14,12 @@ from django.forms import ModelForm
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from .forms import Upd1, Upd2, Upd3
 
+gray = Status(4)  # Принята
+blue = Status(5)  # Передана инженеру
+yellow = Status(6)  # Выполнена, ждем скан
+green = Status(7)  # Выполнена
 
 def index(request):
     """
@@ -31,13 +36,12 @@ def index(request):
 
 
 # @login_required # Доступ к функции имеют только зарегенные юзеры
-
-
 @permission_required('app.can_list_detail')
 def rec_list(request):
     """
     Функция отображения для домашней страницы сайта.
     """
+
     recs = Rec.objects.all()
     ddd = set()
     for i in recs:
@@ -47,72 +51,26 @@ def rec_list(request):
     return render(
         request,
         'rec_list.html',
-        context={'recs': recs, 'ddd': ddd},
+        context={'recs': recs, 'ddd': ddd, 'gray': gray, 'blue': blue, 'yellow': yellow, 'green': green},
     )
 
 
 class RecDetailView(PermissionRequiredMixin, generic.DetailView):
     model = Rec
     permission_required = 'app.can_list_detail'
-
+    extra_context = {'gray': gray, 'blue': blue, 'yellow': yellow, 'green': green}
 
 class RecCreate(PermissionRequiredMixin, CreateView):
     model = Rec
     permission_required = 'app.can_create_update'
     fields = ['rec_num', 'staff', 'store', 'customer', 'description']
-    initial = {'status': 5}
-
-
-
-# @permission_required('app.can_list_detail')
-# def rec_list(request):
-
-
-#    return render(
-#        request,
-#        'rec_list.html',
-#        context={'recs': recs, 'ddd': ddd},
-#    )
-
-
-
-
-
-
-
-
-
-
-
-
-
-class Upd1(forms.ModelForm):
-    class Meta:
-        model = Rec
-        fields = ['status', 'sign_day', 'sign_time', 'tech', 'trouble']
-        widgets = {'status': HiddenInput()}
-
-
-class Upd2(forms.ModelForm):
-    class Meta:
-        model = Rec
-        fields = ['status', 'visit_day_begin', 'visit_time_begin', 'visit_day_end', 'visit_time_end', 'result']
-        widgets = {'status': HiddenInput()}
-
-
-class Upd3(forms.ModelForm):
-    class Meta:
-        model = Rec
-        fields = ['status', 'jpg', 'form']
-        widgets = {'status': HiddenInput()}
 
 
 class RecUpdate1(PermissionRequiredMixin, UpdateView):
     model = Rec
     form_class = Upd1
-    initial = {'status': 5, 'sign_day': datetime.date.today(), 'sign_time': datetime.datetime.now()}
+    initial = {'status': 5, 'sign_day': datetime.datetime.now(), 'sign_time': datetime.datetime.now()}
     permission_required = 'app.can_create_update'
-#    initial = {'status': 5, 'sign_day': datetime.datetime.now(), 'sign_time': datetime.datetime.now()}
 
 
 class RecUpdate2(PermissionRequiredMixin, UpdateView):
