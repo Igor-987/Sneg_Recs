@@ -9,6 +9,10 @@ class Status(models.Model):
 
     name = models.CharField(max_length=32, help_text="Состояние заявки")
 
+    class Meta:
+        verbose_name = 'Статус'
+        verbose_name_plural = 'Статусы'
+
     def __str__(self):
         return self.name
 
@@ -16,6 +20,10 @@ class Status(models.Model):
 class Retail(models.Model):
 
     name = models.CharField(max_length=64, help_text="Торговая сеть")
+    class Meta:
+        verbose_name = 'Торговая сеть'
+        verbose_name_plural = 'Торговые сети'
+
 
     def __str__(self):
         return self.name
@@ -25,6 +33,11 @@ class Trouble(models.Model):
 
     name = models.CharField(max_length=32, help_text="Категория неисправности")
 
+    class Meta:
+        verbose_name = 'Неисправность'
+        verbose_name_plural = 'Неисправности'
+
+
     def __str__(self):
         return self.name
 
@@ -32,6 +45,10 @@ class Trouble(models.Model):
 class Tech(models.Model):
 
     name = models.CharField(max_length=64, help_text="Сервисный инженер")
+
+    class Meta:
+        verbose_name = 'Инженер'
+        verbose_name_plural = 'Инженеры'
 
     def __str__(self):
         return self.name
@@ -41,6 +58,9 @@ class Store(models.Model):
 
     name = models.CharField(max_length=96, help_text="Торговая точка, адрес")
 
+    class Meta:
+        verbose_name = 'Магазин'
+        verbose_name_plural = 'Магазины'
 
     def __str__(self):
         return self.name
@@ -72,6 +92,8 @@ class Rec(models.Model):
     jpg = models.ImageField(upload_to='images', null=True, verbose_name="Скан-копия заказа-наряда")
 
     class Meta:
+        verbose_name = 'Заявка'
+        verbose_name_plural = 'Заявки'
         ordering = ['-rec_time'] # отображение заявок в rec-list.html в обратном порядке
         permissions = (("can_create_update", "Может rec_create и rec_update"),
                        ("can_list_detail", "Может rec_list и rec_detail"),

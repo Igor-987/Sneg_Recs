@@ -3,18 +3,22 @@
 {% block content %}
 
   <h4><strong>Детальная информация о заявке:</strong></h4>
- <div style="border: 1px solid black; background-color: white; padding: 3px; width:88%;">
+
 
                 {% if rec.status == gray %}
-                <p style="background-color: #A9A9A9" > <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p>
+     <div style="border: 1px solid black; background-color: #A9A9A9; padding: 3px; width:88%;">
+                <p> <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p></div>
                 {% elif rec.status == blue %}
-                <p style="background-color: #00BFFF" > <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p>
+     <div style="border: 1px solid black; background-color: #00BFFF; padding: 3px; width:88%;">
+                <p> <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p></div>
                  {% elif rec.status == yellow %}
-                <p style="background-color: #FFD700" > <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p>
+     <div style="border: 1px solid black; background-color: #FFD700; padding: 3px; width:88%;">
+                <p> <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p></div>
                 {% elif rec.status == green %}
-                <p style="background-color: #32CD32" > <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p>
+     <div style="border: 1px solid black; background-color: #32CD32; padding: 3px; width:88%;">
+                <p> <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p></div>
                 {% endif %}
- </div><br>
+ <br>
 
 
   <div style="border: 1px solid black; background-color: white; padding: 3px; width:88%;">

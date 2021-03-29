@@ -2,15 +2,16 @@ from django.shortcuts import render
 from django.views import generic
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django import forms
-from .models import Status, Retail, Tech, Store, Rec
+from .models import Status, Retail, Tech, Store, Trouble, Rec
 from django.forms import DateTimeInput, HiddenInput, MultipleHiddenInput, DateInput, SelectDateWidget, \
     SplitDateTimeWidget, Select, SplitHiddenDateTimeWidget
 from django.forms import ModelForm
+from django.shortcuts import get_object_or_404
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -60,10 +61,12 @@ class RecDetailView(PermissionRequiredMixin, generic.DetailView):
     permission_required = 'app.can_list_detail'
     extra_context = {'gray': gray, 'blue': blue, 'yellow': yellow, 'green': green}
 
+
 class RecCreate(PermissionRequiredMixin, CreateView):
     model = Rec
     permission_required = 'app.can_create_update'
     fields = ['retail', 'rec_num', 'staff', 'store', 'customer', 'description']
+    initial = {'staff': '5'}
 
 
 class RecUpdate1(PermissionRequiredMixin, UpdateView):

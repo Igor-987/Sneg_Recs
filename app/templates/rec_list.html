@@ -20,23 +20,23 @@
             {% if rec.rec_date == d %}
 
           <tr>
-              <td align="center" > <a href="{{ rec.get_absolute_url }}">{{ rec.rec_num }} </a> </td>
+              <td width="12%" align="center" > <a href="{{ rec.get_absolute_url }}">&nbsp;{{ rec.rec_num }}&nbsp;</a> </td>
 
                 {% if rec.status == gray %}
-                <td bgcolor=#A9A9A9 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
+                <td width="22%" bgcolor=#A9A9A9 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                 {% elif rec.status == blue %}
-                <td bgcolor=#00BFFF align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
+                <td width="22%" bgcolor=#00BFFF align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                  {% elif rec.status == yellow %}
-                <td bgcolor=#FFD700 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
+                <td width="22%" bgcolor=#FFD700 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                 {% elif rec.status == green %}
-                <td bgcolor=#32CD32 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
+                <td width="22%" bgcolor=#32CD32 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                 {% endif %}
-              <td> &nbsp;{{ rec.retail}}&nbsp; </td>
-              <td> &nbsp;{{ rec.store}}&nbsp; </td>
+              <td width="12%" > &nbsp;{{ rec.retail}}&nbsp; </td>
+              <td width="37%" > &nbsp;{{ rec.store}}&nbsp; </td>
               {% if rec.tech %}
-              <td align="center" > &nbsp;{{ rec.tech }}&nbsp;</td>
+              <td width="17%" align="center" > &nbsp;{{ rec.tech }}&nbsp;</td>
               {% else %}
-              <td align="center" > &nbsp;Еще не выбран&nbsp;</td>
+              <td width="17%" align="center" > &nbsp;Еще не выбран&nbsp;</td>
               {% endif %}
           </tr>
             {% endif %}
