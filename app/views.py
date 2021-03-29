@@ -7,7 +7,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django import forms
-from .models import Status, Trouble, Tech, Store, Rec
+from .models import Status, Retail, Tech, Store, Rec
 from django.forms import DateTimeInput, HiddenInput, MultipleHiddenInput, DateInput, SelectDateWidget, \
     SplitDateTimeWidget, Select, SplitHiddenDateTimeWidget
 from django.forms import ModelForm
@@ -63,7 +63,7 @@ class RecDetailView(PermissionRequiredMixin, generic.DetailView):
 class RecCreate(PermissionRequiredMixin, CreateView):
     model = Rec
     permission_required = 'app.can_create_update'
-    fields = ['rec_num', 'staff', 'store', 'customer', 'description']
+    fields = ['retail', 'rec_num', 'staff', 'store', 'customer', 'description']
 
 
 class RecUpdate1(PermissionRequiredMixin, UpdateView):

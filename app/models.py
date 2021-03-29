@@ -13,12 +13,12 @@ class Status(models.Model):
         return self.name
 
 
-# class Staff(models.Model):
+class Retail(models.Model):
 
-    # name = models.CharField(max_length=64, help_text="Диспетчер")
+    name = models.CharField(max_length=64, help_text="Торговая сеть")
 
-    # def __str__(self):
-        # return self.name
+    def __str__(self):
+        return self.name
 
 
 class Trouble(models.Model):
@@ -41,6 +41,7 @@ class Store(models.Model):
 
     name = models.CharField(max_length=96, help_text="Торговая точка, адрес")
 
+
     def __str__(self):
         return self.name
 
@@ -50,9 +51,10 @@ class Rec(models.Model):
     Это модель заявки
     """
     status = models.ForeignKey(Status, null=True, on_delete=models.SET_NULL, default=4, verbose_name="Статус заявки")
+    retail = models.ForeignKey(Retail, null=True, on_delete=models.SET_NULL, verbose_name="Торговая сеть")
     rec_date = models.DateField(auto_now_add=True, verbose_name="Дата создания заявки")
     rec_time = models.TimeField(auto_now_add=True, verbose_name="Время создания заявки")
-    staff = models.ForeignKey(User, null=True, on_delete=models.SET_NULL)
+    staff = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name="Диспетчер")
     customer = models.CharField(max_length=100, verbose_name="ФИО инициатора заявки")
     rec_num = models.CharField(verbose_name='Номер заявки', max_length=12)
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL, verbose_name="Торговая точка, адрес")

@@ -1,6 +1,6 @@
 from django import forms
 import datetime
-from .models import Status, Trouble, Tech, Store, Rec
+from .models import Status, Trouble, Tech, Store, Rec, Retail
 from django.forms import DateTimeInput, TimeInput, NumberInput, HiddenInput, MultipleHiddenInput, DateInput, SelectDateWidget, SplitDateTimeWidget, Select, SplitHiddenDateTimeWidget
 
 class Upd1(forms.ModelForm):
