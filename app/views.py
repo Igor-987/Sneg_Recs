@@ -19,6 +19,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from .forms import Upd1, Upd2, Upd3, RecCreateForm
 
+# цвета статусов
 gray = Status(4)  # Принята
 blue = Status(5)  # Передана инженеру
 yellow = Status(6)  # Выполнена, ждем скан
@@ -43,37 +44,46 @@ class RecList(PermissionRequiredMixin, generic.ListView):
     permission_required = 'app.can_list_detail'
 
     def get_queryset(self):  # новый
+        global x # глоб. перем. для передачи отфильтрованного QuerySet из этой функции в следующую
+        global y # глоб. перем. - флаг того, что была фильтрация
+        y = False
         rn = self.request.GET.get('rn')
         rs = self.request.GET.get('rs')
         r = self.request.GET.get('r')
         s = self.request.GET.get('s')
         recs = Rec.objects.all()
-        if rn:
+        if rn:  # фильтр по номеру заявки
             recs = recs.filter(rec_num__icontains=rn)
-        if rs:
+        if rs:  # фильтр по статусу
             recs = recs.filter(status=rs)
-        if r:
+        if r:  # фильтр по торговой сети
             recs = recs.filter(retail=r)
-        if s:
-            recs = recs.filter(store__icontains=s)
-
+        if s:  # фильтр торговой точке
+            search_list = []
+            for i in recs:
+                if s in i.store.name:
+                    search_list.append(i.id)
+            recs = recs.filter(id__in=search_list)
+        x = recs
+        if rn or rs or r or s:
+            y = True
         return recs
 
     def get_context_data(self, **kwargs):
         # В первую очередь получаем базовую реализацию контекста
         context = super(RecList, self).get_context_data(**kwargs)
         ddd = set()
-        for i in Rec.objects.all():
+        for i in x:
              ddd.add(i.rec_date)
         ddd = sorted(ddd, reverse=True)[:45]  # сортировка убыванию даты и кол-во отображаемых дней
-        # Добавляем новую переменную к контексту и инициализируем её некоторым значением
-        context['status_all'] = Status.objects.all()
-        context['retail_all'] = Retail.objects.all()
-        context['ddd'] = ddd
-        context['gray'] = gray
+        context['status_all'] = Status.objects.all()  # Передаем эти кверисеты для организации
+        context['retail_all'] = Retail.objects.all()  # выпадающего списка в HTML
+        context['ddd'] = ddd # Добавляем переменную к контексту
+        context['gray'] = gray  # цвета статусов
         context['blue'] = blue
         context['yellow'] = yellow
         context['green'] = green
+        context['y'] = y
         return context
 
 

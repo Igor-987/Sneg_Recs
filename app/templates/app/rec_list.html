@@ -2,10 +2,16 @@
 
 {% block content %}
 <br>
+<div style="border: 2px solid black; background-color: white; padding: 3px; width:95%;">
+{% if y %}
+    <form action="{% url 'recs' %}">
+      <button type="submit">Убрать фильтр</button>
+    </form>
+{% else %}
 <form name="feedback" method="get" action="{% url 'recs' %}">
 
  <input size = "28" type="text" name="rn" placeholder="Номер заявки (можно частично)">
- <input size = "28" type="text" name="s" placeholder="Торговая точка (можно частично)">
+
 
   <select name="rs">
     <option value="">Выберите статус заявки</option>
@@ -20,34 +26,18 @@
     <option value={{ i.id }}>{{ i.name }}</option>
   {% endfor %}
   </select>
+
+<input size = "28" type="text" name="s" placeholder="Торговая точка (можно частично)">
+
+
+ {% if not y %}
+    <input type="submit" name="submit_btn" value="Поиск">
+      {% endif %}
+{% endif %}
+
+</form>
+</div>
 <br>
-  <input type="submit" name="submit_btn" value="Поиск">
-</form>
-
-<br>
-
-
-<fieldset>
-
- <legend>Поиск</legend>
-    <form action="{% url 'recs' %}" method="get">
-  <input name="rn" type="text" placeholder="Номер заявки...">
-</form>
-
-<form action="{% url 'recs' %}" method="get">
-  <input name="rs" type="text" placeholder="Статус заявки...">
-</form>
-
-<form action="{% url 'recs' %}" method="get">
-  <input name="r" type="text" placeholder="Торговая сеть...">
-</form>
-
-<form action="{% url 'recs' %}" method="get">
-  <input name="s" type="text" placeholder="Торговая точка...">
-</form>
-
-</fieldset>
-
 
   {% if rec_list %}
 
