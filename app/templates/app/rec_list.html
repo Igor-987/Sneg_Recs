@@ -1,8 +1,41 @@
 {% extends "base_generic.html" %}
 
 {% block content %}
+<br>
+<form action="" method="get">
+            {{ filter.form.status }}
+            <input type="submit" />
+        </form>
 
-  {% if recs %}
+<br>
+<fieldset>
+ <legend>Поиск</legend>
+
+<form action="{% url 'recs' %}" method="get">
+  <input name="rn" type="text" placeholder="Номер заявки...">
+</form>
+
+<form action="{% url 'recs' %}" method="get">
+  <input name="rs" type="text" placeholder="Статус заявки...">
+</form>
+
+<form action="{% url 'recs' %}" method="get">
+  <input name="r" type="text" placeholder="Торговая сеть...">
+</form>
+
+<form action="{% url 'recs' %}" method="get">
+  <input name="s" type="text" placeholder="Торговая точка...">
+</form>
+
+<form action="{% url 'recs' %}" method="get">
+  <input name="t" type="text" placeholder="Сервисный инженер...">
+</form>
+
+
+
+</fieldset>
+
+  {% if rec_list %}
 
     {% for d in ddd %}
 <table border="2" width="95%">
@@ -15,7 +48,7 @@
            <td width="37%" align="center" > <strong> &nbsp;Торговая точка&nbsp; </strong> </td>
            <td width="17%" align="center" > <strong> &nbsp;Сервисный инженер&nbsp; </strong> </td>
        </tr>
-      {% for rec in recs %}
+      {% for rec in rec_list %}
 
             {% if rec.rec_date == d %}
 

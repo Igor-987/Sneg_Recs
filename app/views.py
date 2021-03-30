@@ -38,28 +38,46 @@ def index(request):
     )
 
 
-# @login_required # Доступ к функции имеют только зарегенные юзеры
-@permission_required('app.can_list_detail')
-def rec_list(request):
-    """
-    Функция отображения для страницы списка заявок.
-    """
+class RecList(PermissionRequiredMixin, generic.ListView):
+    model = Rec
+    permission_required = 'app.can_list_detail'
 
-    recs = Rec.objects.filter(Q(status=7) & Q(rec_num__icontains=777))
+    def get_queryset(self):  # новый
+        rn = self.request.GET.get('rn')
+        rs = self.request.GET.get('rs')
+        r = self.request.GET.get('r')
+        s = self.request.GET.get('s')
+        t = self.request.GET.get('t')
+        recs = Rec.objects.all()
+        if rn:
+            recs = recs.filter(rec_num__icontains=rn)
+        if rs:
+            recs = recs.filter(status=rs)
+        if r:
+            recs = recs.filter(retail=r)
+        if s:
+            recs = recs.filter(store__icontains=s)
+        if t:
+            recs = recs.filter(tech=t)
+
+        return recs
+
+    def get_context_data(self, **kwargs):
+        # В первую очередь получаем базовую реализацию контекста
+        context = super(RecList, self).get_context_data(**kwargs)
+        ddd = set()
+        for i in Rec.objects.all():
+             ddd.add(i.rec_date)
+        ddd = sorted(ddd, reverse=True)[:45]  # сортировка убыванию даты и кол-во отображаемых дней
+        # Добавляем новую переменную к контексту и инициализируем её некоторым значением
+        context['ddd'] = ddd
+        context['gray'] = gray
+        context['blue'] = blue
+        context['yellow'] = yellow
+        context['green'] = green
+        return context
 
 
-
-
-    ddd = set()
-    for i in recs:
-        ddd.add(i.rec_date)
-    ddd = sorted(ddd, reverse=True)[:45]  # сортировка убыванию даты и кол-во отображаемых дней
-    # Отрисовка HTML-шаблона rec_list.html с данными внутри переменной контекста context
-    return render(
-        request,
-        'rec_list.html',
-        context={'recs': recs, 'ddd': ddd, 'gray': gray, 'blue': blue, 'yellow': yellow, 'green': green},
-    )
 
 
 class RecDetailView(PermissionRequiredMixin, generic.DetailView):
