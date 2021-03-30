@@ -2,16 +2,35 @@
 
 {% block content %}
 <br>
-<form action="" method="get">
-            {{ filter.form.status }}
-            <input type="submit" />
-        </form>
+<form name="feedback" method="get" action="{% url 'recs' %}">
+
+ <input size = "28" type="text" name="rn" placeholder="Номер заявки (можно частично)">
+ <input size = "28" type="text" name="s" placeholder="Торговая точка (можно частично)">
+
+  <select name="rs">
+    <option value="">Выберите статус заявки</option>
+  {% for i in status_all %}
+    <option value={{ i.id }}>{{ i.name }}</option>
+  {% endfor %}
+  </select>
+
+  <select name="r">
+    <option value="">Выберите торговую сеть</option>
+  {% for i in retail_all %}
+    <option value={{ i.id }}>{{ i.name }}</option>
+  {% endfor %}
+  </select>
+<br>
+  <input type="submit" name="submit_btn" value="Поиск">
+</form>
 
 <br>
-<fieldset>
- <legend>Поиск</legend>
 
-<form action="{% url 'recs' %}" method="get">
+
+<fieldset>
+
+ <legend>Поиск</legend>
+    <form action="{% url 'recs' %}" method="get">
   <input name="rn" type="text" placeholder="Номер заявки...">
 </form>
 
@@ -27,13 +46,8 @@
   <input name="s" type="text" placeholder="Торговая точка...">
 </form>
 
-<form action="{% url 'recs' %}" method="get">
-  <input name="t" type="text" placeholder="Сервисный инженер...">
-</form>
-
-
-
 </fieldset>
+
 
   {% if rec_list %}
 

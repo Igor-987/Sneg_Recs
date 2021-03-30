@@ -47,7 +47,6 @@ class RecList(PermissionRequiredMixin, generic.ListView):
         rs = self.request.GET.get('rs')
         r = self.request.GET.get('r')
         s = self.request.GET.get('s')
-        t = self.request.GET.get('t')
         recs = Rec.objects.all()
         if rn:
             recs = recs.filter(rec_num__icontains=rn)
@@ -57,8 +56,6 @@ class RecList(PermissionRequiredMixin, generic.ListView):
             recs = recs.filter(retail=r)
         if s:
             recs = recs.filter(store__icontains=s)
-        if t:
-            recs = recs.filter(tech=t)
 
         return recs
 
@@ -70,6 +67,8 @@ class RecList(PermissionRequiredMixin, generic.ListView):
              ddd.add(i.rec_date)
         ddd = sorted(ddd, reverse=True)[:45]  # сортировка убыванию даты и кол-во отображаемых дней
         # Добавляем новую переменную к контексту и инициализируем её некоторым значением
+        context['status_all'] = Status.objects.all()
+        context['retail_all'] = Retail.objects.all()
         context['ddd'] = ddd
         context['gray'] = gray
         context['blue'] = blue
