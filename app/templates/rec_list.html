@@ -5,9 +5,9 @@
   {% if recs %}
 
     {% for d in ddd %}
-
+<table border="2" width="95%">
         <h4><strong>{{ d }}  </strong></h4>
-<table border="2" width="90%">
+
        <tr>
            <td width="12%" align="center" > <strong> &nbsp;Номер заявки&nbsp; </strong> </td>
            <td width="22%" align="center" > <strong> &nbsp;Статус заявки&nbsp; </strong> </td>
@@ -20,23 +20,23 @@
             {% if rec.rec_date == d %}
 
           <tr>
-              <td width="12%" align="center" > <a href="{{ rec.get_absolute_url }}">&nbsp;{{ rec.rec_num }}&nbsp;</a> </td>
+              <td align="center" > <a href="{{ rec.get_absolute_url }}">&nbsp;{{ rec.rec_num }}&nbsp;</a> </td>
 
                 {% if rec.status == gray %}
-                <td width="22%" bgcolor=#A9A9A9 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
+                <td bgcolor=#A9A9A9 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                 {% elif rec.status == blue %}
-                <td width="22%" bgcolor=#00BFFF align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
+                <td bgcolor=#00BFFF align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                  {% elif rec.status == yellow %}
-                <td width="22%" bgcolor=#FFD700 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
+                <td bgcolor=#FFD700 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                 {% elif rec.status == green %}
-                <td width="22%" bgcolor=#32CD32 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
+                <td bgcolor=#32CD32 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                 {% endif %}
-              <td width="12%" > &nbsp;{{ rec.retail}}&nbsp; </td>
-              <td width="37%" > &nbsp;{{ rec.store}}&nbsp; </td>
+              <td > &nbsp;{{ rec.retail}}&nbsp; </td>
+              <td > &nbsp;{{ rec.store}}&nbsp; </td>
               {% if rec.tech %}
-              <td width="17%" align="center" > &nbsp;{{ rec.tech }}&nbsp;</td>
+              <td  align="center" > &nbsp;{{ rec.tech }}&nbsp;</td>
               {% else %}
-              <td width="17%" align="center" > &nbsp;Еще не выбран&nbsp;</td>
+              <td align="center" > &nbsp;Еще не выбран&nbsp;</td>
               {% endif %}
           </tr>
             {% endif %}

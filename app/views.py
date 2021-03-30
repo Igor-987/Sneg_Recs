@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.views import generic
+from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import permission_required
 from django.views.generic.edit import CreateView, UpdateView
@@ -27,7 +28,7 @@ def index(request):
     """
     Функция отображения для домашней страницы сайта.
     """
-    num_recs = Rec.objects.all().count()
+    num_recs = Rec.objects.count()
 
     # Отрисовка HTML-шаблона index.html с данными внутри переменной контекста context
     return render(
@@ -41,10 +42,14 @@ def index(request):
 @permission_required('app.can_list_detail')
 def rec_list(request):
     """
-    Функция отображения для домашней страницы сайта.
+    Функция отображения для страницы списка заявок.
     """
 
-    recs = Rec.objects.all()
+    recs = Rec.objects.filter(Q(status=7) & Q(rec_num__icontains=777))
+
+
+
+
     ddd = set()
     for i in recs:
         ddd.add(i.rec_date)

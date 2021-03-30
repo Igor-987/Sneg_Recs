@@ -76,7 +76,7 @@ class Rec(models.Model):
     rec_time = models.TimeField(auto_now_add=True, verbose_name="Время создания заявки")
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name="Диспетчер")
     customer = models.CharField(max_length=100, verbose_name="ФИО инициатора заявки")
-    rec_num = models.CharField(verbose_name='Номер заявки', max_length=12)
+    rec_num = models.CharField(verbose_name='Номер заявки', max_length=8)
     store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL, verbose_name="Торговая точка, адрес")
     description = models.TextField(max_length=1000, verbose_name="Содержание заявки")
     trouble = models.ForeignKey(Trouble, null=True, on_delete=models.SET_NULL, verbose_name="Категория неисправности")
