@@ -29,12 +29,7 @@ class RecCreateForm(forms.ModelForm):
         model = Rec
         fields = ['retail', 'rec_num', 'store', 'customer', 'description']
 
+# Используется для записи юзера в поле user модели Rec при создании заявки
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super(RecCreateForm, self).__init__(*args, **kwargs)
-
-    def clean_title(self):
-        title = self.cleaned_data['title']
-        if Book.objects.filter(user=self.user, title=title).exists():
-            raise forms.ValidationError("You have already written a book with same title.")
-        return title
