@@ -11,7 +11,10 @@
                 {% elif rec.status == blue %}
      <div style="border: 1px solid black; background-color: #00BFFF; padding: 3px; width:94%;">
                 <p> <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p></div>
-                 {% elif rec.status == yellow %}
+                {% elif rec.status == red %}
+     <div style="border: 1px solid black; background-color: #FF7F50; padding: 3px; width:94%;">
+                <p> <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p></div>
+                {% elif rec.status == yellow %}
      <div style="border: 1px solid black; background-color: #FFD700; padding: 3px; width:94%;">
                 <p> <strong>Статус заявки:</strong>&nbsp;{{ rec.status }}&nbsp;</p></div>
                 {% elif rec.status == green %}
@@ -33,6 +36,12 @@
   <p><strong>Категория неисправноcти:</strong>&nbsp;{{ rec.trouble }}  &nbsp; &nbsp; &nbsp;
     <strong>Сервисный инженер:</strong>&nbsp;{{ rec.tech }}</p>
   <p><strong>Время передачи заявки инженеру:</strong>&nbsp;{{ rec.sign_day }}&nbsp; &nbsp;{{ rec.sign_time }}</p></div><br>
+{% endif %}
+
+{% if rec.sign_day and rec.sign_time and rec.zip_comment %}
+  <div style="border: 1px solid black; background-color: white; padding: 3px; width:94%;">
+  <p><strong>Комментарий ЗИП:</strong>&nbsp;{{ rec.zip_comment }}  &nbsp; &nbsp; &nbsp;
+   </p></div><br>
 {% endif %}
 
 {% if rec.visit_day_begin and rec.visit_time_begin and rec.visit_day_end and rec.visit_time_end and rec.sign_day and rec.sign_time %}
@@ -62,6 +71,15 @@
 <form action="{{ rec.get_upd2_url }}">
    <button>Отчет инженера</button>
   </form><br>
+
+{% if not rec.zip_comment %}
+{% if perms.app.can_create_update %}
+<form action="{{ rec.get_upd4_url }}">
+   <button>Ожидание ЗИП</button>
+  </form>
+{% endif %}
+{% endif %}
+<br>
 {% endif %}
 {% endif %}
 

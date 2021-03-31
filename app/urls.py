@@ -11,4 +11,5 @@ urlpatterns = [
     url(r'^rec/(?P<pk>\d+)/update1/$', views.RecUpdate1.as_view(), name='rec_update1'),
     url(r'^rec/(?P<pk>\d+)/update2/$', views.RecUpdate2.as_view(), name='rec_update2'),
     url(r'^rec/(?P<pk>\d+)/update3/$', views.RecUpdate3.as_view(), name='rec_update3'),
+    url(r'^rec/(?P<pk>\d+)/update4/$', views.RecUpdate4.as_view(), name='rec_update4'),
     ]

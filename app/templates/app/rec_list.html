@@ -63,7 +63,9 @@
                 <td bgcolor=#A9A9A9 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                 {% elif rec.status == blue %}
                 <td bgcolor=#00BFFF align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
-                 {% elif rec.status == yellow %}
+                {% elif rec.status == red %}
+                <td bgcolor=#FF7F50 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
+                {% elif rec.status == yellow %}
                 <td bgcolor=#FFD700 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>
                 {% elif rec.status == green %}
                 <td bgcolor=#32CD32 align="center" > &nbsp;{{ rec.status }}&nbsp;</td>

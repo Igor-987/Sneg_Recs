@@ -83,6 +83,7 @@ class Rec(models.Model):
     tech = models.ForeignKey(Tech, null=True, on_delete=models.SET_NULL, verbose_name="Сервисный инженер")
     sign_day = models.DateField(null=True, verbose_name="Дата передачи заявки инженеру")
     sign_time = models.TimeField(null=True, verbose_name="Время передачи заявки инженеру")
+    zip_comment = models.TextField(max_length=1000, null=True, verbose_name="Комментарий ЗИП")
     visit_day_begin = models.DateField(null=True, verbose_name="Дата начала работ")
     visit_time_begin = models.TimeField(null=True, verbose_name="Время начала работ")
     visit_day_end = models.DateField(null=True, verbose_name="Дата окончания работ")
@@ -128,3 +129,9 @@ class Rec(models.Model):
         Returns the url to access a rec instance for update.
         """
         return reverse('rec_update3', args=[str(self.id)])
+
+    def get_upd4_url(self):
+        """
+        Returns the url to access a rec instance for update.
+        """
+        return reverse('rec_update4', args=[str(self.id)])

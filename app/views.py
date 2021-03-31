@@ -17,13 +17,14 @@ from django.shortcuts import get_object_or_404
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import Upd1, Upd2, Upd3, RecCreateForm
+from .forms import Upd1, Upd2, Upd3, Upd4, RecCreateForm
 
 # цвета статусов
 gray = Status(4)  # Принята
 blue = Status(5)  # Передана инженеру
 yellow = Status(6)  # Выполнена, ждем скан
 green = Status(7)  # Выполнена
+red = Status(8)  # Ожидание ЗИП
 
 def index(request):
     """
@@ -78,11 +79,12 @@ class RecList(PermissionRequiredMixin, generic.ListView):
         ddd = sorted(ddd, reverse=True)[:45]  # сортировка убыванию даты и кол-во отображаемых дней
         context['status_all'] = Status.objects.all()  # Передаем эти кверисеты для организации
         context['retail_all'] = Retail.objects.all()  # выпадающего списка в HTML
-        context['ddd'] = ddd # Добавляем переменную к контексту
+        context['ddd'] = ddd # Добавляем переменную с датами к контексту
         context['gray'] = gray  # цвета статусов
         context['blue'] = blue
         context['yellow'] = yellow
         context['green'] = green
+        context['red'] = red
         context['y'] = y
         return context
 
@@ -92,7 +94,7 @@ class RecList(PermissionRequiredMixin, generic.ListView):
 class RecDetailView(PermissionRequiredMixin, generic.DetailView):
     model = Rec
     permission_required = 'app.can_list_detail'
-    extra_context = {'gray': gray, 'blue': blue, 'yellow': yellow, 'green': green}
+    extra_context = {'gray': gray, 'blue': blue, 'yellow': yellow, 'green': green, 'red': red}
 
 
 class RecCreate(PermissionRequiredMixin, CreateView):
@@ -149,3 +151,10 @@ class RecUpdate3(PermissionRequiredMixin, UpdateView):
     permission_required = 'app.can_create_update'
     initial = {'status': 7}
     template_name = 'jpg.html'
+
+
+class RecUpdate4(PermissionRequiredMixin, UpdateView):
+    model = Rec
+    form_class = Upd4
+    permission_required = 'app.can_create_update'
+    initial = {'status': 8}

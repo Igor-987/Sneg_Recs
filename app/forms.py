@@ -23,6 +23,12 @@ class Upd3(forms.ModelForm):
         fields = ['status', 'jpg', 'form']
         widgets = {'status': HiddenInput()}
 
+class Upd4(forms.ModelForm):
+    class Meta:
+        model = Rec
+        fields = ['status', 'zip_comment']
+        widgets = {'status': HiddenInput()}
+
 
 class RecCreateForm(forms.ModelForm):
     class Meta:
