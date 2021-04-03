@@ -115,6 +115,8 @@ class RecCreate(PermissionRequiredMixin, CreateView):
         kwargs['user'] = self.request.user
         return kwargs
 
+    def get_success_url(self):
+        return reverse_lazy('rec_update1', kwargs={'pk': self.object.id})
 
 class RecUpdate1(PermissionRequiredMixin, UpdateView):
     model = Rec
