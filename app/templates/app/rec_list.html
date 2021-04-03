@@ -40,7 +40,7 @@
 <br>
 
   {% if rec_list %}
-
+{{ user.get_username }}
     {% for d in ddd %}
 <table border="2" width="95%">
         <h4><strong>{{ d }}  </strong></h4>
@@ -85,7 +85,7 @@
     {% endfor %}
 
   {% else %}
-    <br><p>Заявок пока нетути</p>
+    <br><p>А заявок то нетути</p>
   {% endif %}
 <br><br>
 {% endblock %}

@@ -74,7 +74,7 @@ class RecList(PermissionRequiredMixin, generic.ListView):
         # В первую очередь получаем базовую реализацию контекста
         context = super(RecList, self).get_context_data(**kwargs)
         ddd = set()
-        for i in x:
+        for i in x: # x - это уже отфильтрованный первой функцией список
              ddd.add(i.rec_date)
         ddd = sorted(ddd, reverse=True)[:45]  # сортировка убыванию даты и кол-во отображаемых дней
         context['status_all'] = Status.objects.all()  # Передаем эти кверисеты для организации
@@ -85,7 +85,7 @@ class RecList(PermissionRequiredMixin, generic.ListView):
         context['yellow'] = yellow
         context['green'] = green
         context['red'] = red
-        context['y'] = y
+        context['y'] = y # глоб. перем. - флаг того, что была фильтрация
         return context
 
 

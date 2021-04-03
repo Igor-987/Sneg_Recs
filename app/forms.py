@@ -3,6 +3,18 @@ import datetime
 from .models import Status, Trouble, Tech, Store, Rec, Retail
 from django.forms import DateTimeInput, TimeInput, NumberInput, HiddenInput, MultipleHiddenInput, DateInput, SelectDateWidget, SplitDateTimeWidget, Select, SplitHiddenDateTimeWidget
 
+
+class RecCreateForm(forms.ModelForm):
+    class Meta:
+        model = Rec
+        fields = ['retail', 'rec_num', 'store', 'customer', 'description']
+
+# Используется для записи юзера в поле user модели Rec при создании заявки
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user')
+        super(RecCreateForm, self).__init__(*args, **kwargs)
+
+
 class Upd1(forms.ModelForm):
     class Meta:
         model = Rec
@@ -30,12 +42,3 @@ class Upd4(forms.ModelForm):
         widgets = {'status': HiddenInput()}
 
 
-class RecCreateForm(forms.ModelForm):
-    class Meta:
-        model = Rec
-        fields = ['retail', 'rec_num', 'store', 'customer', 'description']
-
-# Используется для записи юзера в поле user модели Rec при создании заявки
-    def __init__(self, *args, **kwargs):
-        self.user = kwargs.pop('user')
-        super(RecCreateForm, self).__init__(*args, **kwargs)
