@@ -2,8 +2,6 @@
 
 {% block content %}
 
-{{ request.user.username }}
-
 <br>
 <div style="border: 2px solid black; background-color: white; padding: 3px; width:95%;">
 {% if y %}
@@ -40,10 +38,10 @@
 
 </form>
 </div>
-<br>
+
 
   {% if rec_list %}
-{{ user.get_username }}
+
     {% for d in ddd %}
 <table border="2" width="95%">
         <h4><strong>{{ d }}  </strong></h4>
@@ -88,7 +86,7 @@
     {% endfor %}
 
   {% else %}
-    <br><p>А заявок то нетути</p>
+    <br><p>Заявок нет!</p>
   {% endif %}
 <br><br>
 {% endblock %}

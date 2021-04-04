@@ -32,7 +32,7 @@
           {% if perms.app.can_create_update %}
           <li><a href="{% url 'rec_create' %}">Создать новую заявку</a></li>
           {% endif %}
-          <br><br><br><br><br>
+          <br><br><br>
         {% if user.is_authenticated %}
             <li>Вы авторизованы как: </li><li><strong>{{ user.get_username }}</strong></li><br>
             <li><a href="{% url 'logout'%}?next={% url 'index' %}">Выйти</a></li>
