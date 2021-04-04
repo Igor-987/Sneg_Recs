@@ -65,6 +65,9 @@ class RecList(PermissionRequiredMixin, generic.ListView):
                 if s in i.store.name:
                     search_list.append(i.id)
             recs = recs.filter(id__in=search_list)
+        recs = recs.exclude(store=None)
+        # убирает ошибочно заведенные заявки (у которых только retail и staff)
+
         x = recs
         if rn or rs or r or s:
             y = True
