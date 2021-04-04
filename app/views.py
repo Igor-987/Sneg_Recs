@@ -66,11 +66,21 @@ class RecList(PermissionRequiredMixin, generic.ListView):
                     search_list.append(i.id)
             recs = recs.filter(id__in=search_list)
         recs = recs.exclude(store=None)
-        # убирает ошибочно заведенные заявки (у которых только retail и staff)
-
-        x = recs
+        # убирает из rec_list ошибочно заведенные заявки (у которых только retail и user)
         if rn or rs or r or s:
             y = True
+        if self.request.user.is_staff:  # если это пользователь с галочкой персонал
+            pass
+        else:   # если это пользователь без галочки персонал
+            z = str(self.request.user)             # проверяем, что имя пользователя равно названию
+            for i in Retail.objects.all():         # сети, и если так, то оставляем в Кверисете recs
+                if str(i.name) == z:               # только записи этого пользователя
+                    recs = recs.filter(retail=i)
+
+        # хозяйке на заметку! пользователь принадлежащий группе manager:
+        # request.user.groups.filter(name='manager').exists():
+
+        x = recs
         return recs
 
     def get_context_data(self, **kwargs):
