@@ -62,8 +62,9 @@ class RecList(PermissionRequiredMixin, generic.ListView):
         if s:  # фильтр торговой точке
             search_list = []
             for i in recs:
-                if s in i.store.name:
-                    search_list.append(i.id)
+                if i.store != None:
+                    if s in i.store.name:
+                        search_list.append(i.id)
             recs = recs.filter(id__in=search_list)
         recs = recs.exclude(store=None)
         # убирает из rec_list ошибочно заведенные заявки (у которых только retail и user)
@@ -100,8 +101,6 @@ class RecList(PermissionRequiredMixin, generic.ListView):
         context['red'] = red
         context['y'] = y # глоб. перем. - флаг того, что была фильтрация
         return context
-
-
 
 
 class RecDetailView(PermissionRequiredMixin, generic.DetailView):

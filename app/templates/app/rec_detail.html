@@ -2,6 +2,13 @@
 
 {% block content %}
 
+{% if not request.user.is_staff and request.user.username != rec.retail|stringformat:"s" %}
+
+<li><a href="{% url 'index' %}">Нет прав для просмотра этой записи</a></li> <br>
+
+{% else %}
+
+
   <h4><strong>Детальная информация о заявке:</strong></h4>
 
 
@@ -94,5 +101,5 @@
 
 
 
-
+{% endif %}
 {% endblock %}
