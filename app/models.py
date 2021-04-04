@@ -4,7 +4,6 @@ from django.contrib.auth.models import User
 import datetime
 from django.utils import timezone
 
-
 class Status(models.Model):
 
     name = models.CharField(max_length=32, help_text="Состояние заявки")
@@ -78,9 +77,7 @@ class Rec(models.Model):
     user = models.ForeignKey(User, null=True, on_delete=models.SET_NULL, verbose_name="Диспетчер")
     customer = models.CharField(max_length=100, verbose_name="ФИО инициатора заявки")
     rec_num = models.CharField(verbose_name='Номер заявки', max_length=8)
-    store = models.ForeignKey(Store, null=True, limit_choices_to={'retail': 3}, on_delete=models.SET_NULL,
-                              verbose_name="Торговая точка, адрес")
-    # store = models.ForeignKey(Store, null=True, limit_choices_to={'retail': 3}, on_delete=models.SET_NULL, verbose_name="Торговая точка, адрес")
+    store = models.ForeignKey(Store, null=True, on_delete=models.SET_NULL, verbose_name="Торговая точка, адрес")
     description = models.TextField(max_length=1000, verbose_name="Содержание заявки")
     trouble = models.ForeignKey(Trouble, null=True, on_delete=models.SET_NULL, verbose_name="Категория неисправности")
     tech = models.ForeignKey(Tech, null=True, on_delete=models.SET_NULL, verbose_name="Сервисный инженер")

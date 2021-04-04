@@ -14,14 +14,14 @@
 
 
   <select name="rs">
-    <option value="">Выберите статус заявки</option>
+    <option value="">Выберите статус заявки из списка</option>
   {% for i in status_all %}
     <option value={{ i.id }}>{{ i.name }}</option>
   {% endfor %}
   </select>
 
   <select name="r">
-    <option value="">Выберите торговую сеть</option>
+    <option value="">Выберите торговую сеть из списка</option>
   {% for i in retail_all %}
     <option value={{ i.id }}>{{ i.name }}</option>
   {% endfor %}

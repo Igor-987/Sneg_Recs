@@ -7,12 +7,27 @@ from django.forms import DateTimeInput, TimeInput, NumberInput, HiddenInput, Mul
 class RecCreateForm(forms.ModelForm):
     class Meta:
         model = Rec
-        fields = ['retail', 'rec_num', 'store', 'customer', 'description']
+        fields = ['retail']
 
 # Используется для записи юзера в поле user модели Rec при создании заявки
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user')
         super(RecCreateForm, self).__init__(*args, **kwargs)
+
+
+class Upd0(forms.ModelForm):
+    class Meta:
+        model = Rec
+        fields = ['rec_num', 'store', 'customer', 'description']
+
+    def __init__(self, *args, **kwargs):
+        """
+        ограничивает выбор store теми элементами, которые имеют тот же retail,
+        что уже был выбран для этого экземпляра rec в RecCreateForm
+        """
+        super(Upd0, self).__init__(*args, **kwargs)
+        self.fields['store'].queryset = Store.objects.filter(
+            retail=self.instance.retail)
 
 
 class Upd1(forms.ModelForm):

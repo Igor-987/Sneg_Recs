@@ -17,7 +17,7 @@ from django.shortcuts import get_object_or_404
 import datetime
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from .forms import Upd1, Upd2, Upd3, Upd4, RecCreateForm
+from .forms import Upd0, Upd1, Upd2, Upd3, Upd4, RecCreateForm
 
 # цвета статусов
 gray = Status(4)  # Принята
@@ -48,7 +48,7 @@ class RecList(PermissionRequiredMixin, generic.ListView):
         global x # глоб. перем. для передачи отфильтрованного QuerySet из этой функции в следующую
         global y # глоб. перем. - флаг того, что была фильтрация
         y = False
-        rn = self.request.GET.get('rn')
+        rn = self.request.GET.get('rn') # принимаем значения из полей для поиска из rec_list.html
         rs = self.request.GET.get('rs')
         r = self.request.GET.get('r')
         s = self.request.GET.get('s')
@@ -79,7 +79,7 @@ class RecList(PermissionRequiredMixin, generic.ListView):
         ddd = sorted(ddd, reverse=True)[:45]  # сортировка убыванию даты и кол-во отображаемых дней
         context['status_all'] = Status.objects.all()  # Передаем эти кверисеты для организации
         context['retail_all'] = Retail.objects.all()  # выпадающего списка в HTML
-        context['ddd'] = ddd # Добавляем переменную с датами к контексту
+        context['ddd'] = ddd # Добавляем переменную с датами к контексту для использования в HTML
         context['gray'] = gray  # цвета статусов
         context['blue'] = blue
         context['yellow'] = yellow
@@ -116,7 +116,14 @@ class RecCreate(PermissionRequiredMixin, CreateView):
         return kwargs
 
     def get_success_url(self):
-        return reverse_lazy('rec_update1', kwargs={'pk': self.object.id})
+        return reverse_lazy('rec_update0', kwargs={'pk': self.object.id})
+
+
+class RecUpdate0(PermissionRequiredMixin, UpdateView):
+    model = Rec
+    form_class = Upd0
+    permission_required = 'app.can_create_update'
+
 
 class RecUpdate1(PermissionRequiredMixin, UpdateView):
     model = Rec
